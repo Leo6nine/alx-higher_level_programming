@@ -7,7 +7,7 @@ else:
     dig = (number % (-10))
 
 if dig > 5:
-    print(f"Last dig of {number:d} is {dig:d} and is greater than 5")
+    print(f"Last digit of {number:d} is {dig:d} and is greater than 5")
 elif dig == 0:
     print(f"Last digit of {number:d} is {dig:d} and is 0")
 else:
