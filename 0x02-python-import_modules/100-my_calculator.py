@@ -3,8 +3,6 @@ from sys import argv
 from calculator_1 import add, sub, mul, div
 
 if __name__ == "__main__":
-    op = argv[2]
-    sign = {"+", "-", "*", "/"}
     x = argv[1]
     y = argv[3]
     a = int(x)
@@ -13,19 +11,19 @@ if __name__ == "__main__":
         print("Usage: ./100-my_calculator.py <a> <operator> <b>")
         exit(1)
     else:
-        if op not in sign:
+        if argv[2] not in ["+", "-", "*", "/"]:
             print("Unknown operater. Available poerators: +, -, *, and /")
             exit (1)
         else:
-            if op == '+':
+            if argv[2] == '+':
                 tmp = add(a, b)
                 print("{} + {} = {}".format(x, y, tmp))
-            elif op == '-':
+            elif argv[2] == '-':
                 tmp = sub(a, b)
                 print("{} - {} = {}".format(x, y, tmp))
-            elif op == '*':
+            elif argv[2] == '*':
                 tmp = mul(a, b)
                 print("{} * {} = {}".format(x, y, tmp))
-            elif op == '/':
+            elif argv[2] == '/':
                 tmp = div(a, b)
                 print("{} / {} = {}".format(x, y, tmp))
