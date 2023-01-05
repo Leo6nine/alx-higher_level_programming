@@ -8,7 +8,7 @@ if __name__ == "__main__":
         exit(1)
         
     op = argv[2]
-    sign = {"+": add, "-": sub, "*": mul, "/": div}
+    sign = {"+", "-", "*", "/"}
     if op not in sign:
         print("Unknown operater. Available poerators: +, -, *, and /")
         exit (1)
