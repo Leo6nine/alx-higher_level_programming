@@ -12,6 +12,21 @@ if __name__ == "__main__":
     if op not in sign:
         print("Unknown operater. Available poerators: +, -, *, and /")
         exit (1)
-    a = int(argv[1])
-    b = int(argv[3])
-    print("{:d} {:s} {:d} = {:d}".format(a, op, b, sign[op](a, b)))
+    
+    x = argv[1]
+    y = argv[3]
+    a = int(x)
+    b = int(y)
+    
+    if op == '+':
+        tmp = add(a, b)
+        print("{} + {} = {}".format(x, y, tmp))
+    elif op == '-':
+        tmp = sub(a, b)
+        print("{} - {} = {}".format(x, y, tmp))
+    elif op == '*':
+        tmp = mul(a, b)
+        print("{} * {} = {}".format(x, y, tmp))
+    elif op == '/':
+        tmp = div(a, b)
+        print("{} / {} = {}".format(x, y, tmp))
