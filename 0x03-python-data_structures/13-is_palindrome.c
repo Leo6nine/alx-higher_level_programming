@@ -1,128 +1,71 @@
 #include "lists.h"
-int digit_count(int);
-
 /**
- * is_palindrome - checks if a singly linked list is a palindrome.
- * @head: head pointer to singly linked list
+ * reverse_listint - reverses a linked list
+ * @head: pointer to the first node in the list
  *
- * Return: 0 if it is not a palindrome, 1 if it is a palindrome
- * Authour: Felix Obianozie
+ * Return: pointer to the first node in the new list
  */
-
-int is_palindrome(listint_t **head)
+void reverse_listint(listint_t **head)
 {
+	listint_t *prev = NULL;
 	listint_t *current = *head;
-	int nodes = 0;
-	int limit = 0;
-	int tmp = 1;
-	int i = 0;
-	int j = 0;
+	listint_t *next = NULL;
 
-	long double value1 = 0;
-	long double value2 = 0;
-
-	/*Empty list is palindrome*/
-	if (*head == NULL)
-		return (1);
-
-	/*Count nodes*/
-	while (current != NULL)
+	while (current)
 	{
-		current = current->next;
-		nodes++;
-	}
-	current = *head;
-
-	/*List with one node is palindrome*/
-	if (nodes == 1)
-		return (1);
-
-	/*Palindrome in an even case*/
-	if (nodes % 2 == 0)
-	{
-		limit = nodes / 2;
-		for (i = 0; i < limit; i++)
-		{
-			j = 0;
-			tmp = digit_count(current->n);
-			while (j < tmp)
-			{
-				value1 = value1 * 10;
-				j++;
-			}
-			value1 = value1 + current->n;
-			current = current->next;
-		}
-
-		tmp = 1;
-		for (i = 0; current != NULL; i++)
-		{
-			while (value2 >= 1)
-			{
-				value2 = value2 / 10;
-				if (i > 0)
-					tmp = tmp * 10;
-			}
-			value2 = value2 + current->n;
-			current = current->next;
-		}
-		value2 = value2 * tmp;
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
 	}
 
-	/*Palindrome in an odd case*/
-	if (nodes % 2 != 0)
-	{
-		limit = (nodes / 2) + 1;
-		for (i = 0; i < limit; i++)
-		{
-			j = 0;
-			tmp = digit_count(current->n);
-			while (j < tmp)
-			{
-				value1 = value1 * 10;
-				j++;
-			}
-			value1 = value1 + current->n;
-			tmp = current->n;
-			current = current->next;
-		}
-
-		value2 = tmp;
-		tmp = 1;
-		for (i = 0; current != NULL; i++)
-		{
-			while (value2 >= 1)
-			{
-				value2 = value2 / 10;
-				tmp = tmp * 10;
-			}
-			value2 = value2 + current->n;
-			current = current->next;
-		}
-		value2 = value2 * tmp;
-	}
-
-	if (value1 == value2)
-		return (1);
-	return (0);
+	*head = prev;
 }
 
 /**
- * digit_count - estimates the number of digits of a given integer value.
- * @value: the supposed integer value
+ * is_palindrome - checks if a linked list is a palindrome
+ * @head: double pointer to the linked list
  *
- * Return: number of digits of given integer.
+ * Return: 1 if it is, 0 if not
  */
-
-int digit_count(int value)
+int is_palindrome(listint_t **head)
 {
-	int count = 0;
+	listint_t *slow = *head, *fast = *head, *temp = *head, *dup = NULL;
 
-	while (value >= 1)
+	if (*head == NULL || (*head)->next == NULL)
+		return (1);
+
+	while (1)
 	{
-		value = value / 10;
-		count++;
+		fast = fast->next->next;
+		if (!fast)
+		{
+			dup = slow->next;
+			break;
+		}
+		if (!fast->next)
+		{
+			dup = slow->next->next;
+			break;
+		}
+		slow = slow->next;
 	}
 
-	return (count);
+	reverse_listint(&dup);
+
+	while (dup && temp)
+	{
+		if (temp->n == dup->n)
+		{
+			dup = dup->next;
+			temp = temp->next;
+		}
+		else
+			return (0);
+	}
+
+	if (!dup)
+		return (1);
+
+	return (0);
 }
