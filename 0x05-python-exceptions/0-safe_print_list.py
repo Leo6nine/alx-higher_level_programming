@@ -12,11 +12,11 @@ def safe_print_list(my_list=[], x=0):
         The number of elements printed.
     '''
     num = 0
-    for i in range(x):
+    while num < 0:
         try:
             print("{}".format(my_list[i]), end="")
-            num += 1
         except IndexError:
             break
+        num += 1
         print("")
-        return (num)
+        return num
